@@ -1,6 +1,8 @@
-package main
+package bdd
 
-import "testing"
+import (
+	"testing"
+)
 
 type BDD struct {
 	T         *testing.T
