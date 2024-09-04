@@ -7,9 +7,9 @@ import (
 	"testing"
 )
 
-type BDDStep func(t *testing.T)
+type Step func(sc Scenario, t *testing.T)
 
-func (s *BDDStep) GetFunctionName(i interface{}) string {
+func (s *Step) GetFunctionName(i interface{}) string {
 	p := reflect.ValueOf(i).Pointer()
 	n := runtime.FuncForPC(p).Name()
 	if n == "" {
