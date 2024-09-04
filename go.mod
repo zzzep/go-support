@@ -2,7 +2,10 @@ module github.com/zzzep/go-bdd-test
 
 go 1.23
 
-require github.com/stretchr/testify v1.9.0
+require (
+	github.com/stretchr/objx v0.5.2
+	github.com/stretchr/testify v1.9.0
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect

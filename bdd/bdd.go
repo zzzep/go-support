@@ -6,7 +6,7 @@ import (
 
 type BDD struct {
 	T         *testing.T
-	Scenarios []BDDScenario
+	Scenarios []Scenario
 }
 
 func NewBDD(t *testing.T) *BDD {
@@ -15,7 +15,7 @@ func NewBDD(t *testing.T) *BDD {
 	}
 }
 
-func (b *BDD) AddScenario(scenario BDDScenario) *BDD {
+func (b *BDD) AddScenario(scenario Scenario) *BDD {
 	b.Scenarios = append(b.Scenarios, scenario)
 	return b
 }
