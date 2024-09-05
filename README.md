@@ -26,5 +26,5 @@ It is composed by some components:
 
 You can install using the following command:
 ```bash
-go install github.com/zzzep/go-bdd-test@latest`
+go install github.com/zzzep/go-support@latest`
 ```
