@@ -1,8 +1,10 @@
 package json
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"io"
 	"testing"
 )
 
@@ -49,6 +51,16 @@ func TestUnmarshal(t *testing.T) {
 		data := []byte(`invalid-json`)
 		got, err := Unmarshal[map[string]any](data)
 		assert.Error(t, err)
+		assert.Equal(t, want, got)
+	})
+	t.Run("io.reader", func(t *testing.T) {
+		want := map[string]any{
+			"key": "value",
+		}
+		var data io.Reader
+		data = bytes.NewReader([]byte(`{"key": "value"}`))
+		got, err := Unmarshal[map[string]any](data)
+		assert.NoError(t, err)
 		assert.Equal(t, want, got)
 	})
 }

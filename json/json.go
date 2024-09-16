@@ -3,6 +3,7 @@ package json
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 )
 
 func RedoUnmarshal[T any](from any) (to T, err error) {
@@ -25,6 +26,9 @@ func Unmarshal[T any](data any) (T, error) {
 		res = []byte(data.(string))
 	case []byte:
 		res = data.([]byte)
+	case io.Reader:
+		err := json.NewDecoder(data.(io.Reader)).Decode(&dest)
+		return dest, err
 	default:
 		return dest, fmt.Errorf("unsupported type: %T", t)
 	}
