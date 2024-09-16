@@ -24,8 +24,14 @@ jobs:
     - name: Build
       run: go build -v ./...
 
-    - name: Test
-      run: go test -v ./...
+    - name: Test With Coverage
+      run: |
+        go test -v ./... -coverprofile=coverage.txt
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Upload test results to Codecov
       if: ${{ !cancelled() }}
