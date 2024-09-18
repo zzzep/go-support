@@ -12,7 +12,7 @@
 [![Sponsor](https://img.shields.io/badge/sponsor-zzzep-red)](https://github.com/sponsors/zzzep)
 [![codecov](https://codecov.io/github/zzzep/go-support/graph/badge.svg?token=928J9KJUO8)](https://codecov.io/github/zzzep/go-support)
 
-⚠️ **Este projeto está em fase beta e ainda pode passar por mudanças significativas.**
+⚠️ **This project is in beta phase and may still undergo significant changes.**
 
 This project is an Easier/Support/Facilitator library for Golang.
 
@@ -40,5 +40,5 @@ It is composed by some components:
 
 You can install using the following command:
 ```bash
-go install github.com/zzzep/go-support@latest`
+go install github.com/zzzep/go-support@latest
 ```

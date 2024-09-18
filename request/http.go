@@ -5,7 +5,7 @@ import (
 	"context"
 	"crypto/tls"
 	"fmt"
-	"github.com/zzzep/go-bdd-test/json"
+	"github.com/zzzep/go-support/json"
 	"io"
 	"net/http"
 )

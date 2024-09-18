@@ -2,7 +2,7 @@ package example
 
 import (
 	"github.com/stretchr/testify/assert"
-	"github.com/zzzep/go-bdd-test/ternary"
+	"github.com/zzzep/go-support/ternary"
 	"testing"
 )
 

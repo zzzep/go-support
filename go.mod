@@ -1,4 +1,4 @@
-module github.com/zzzep/go-bdd-test
+module github.com/zzzep/go-support
 
 go 1.23
 
