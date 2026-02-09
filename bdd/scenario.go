@@ -1,8 +1,15 @@
 package bdd
 
 import (
+	"fmt"
 	"reflect"
+	"sync"
 	"testing"
+)
+
+var (
+	stepCounter int
+	counterMutex sync.Mutex
 )
 
 type Scenario struct {
@@ -34,6 +41,19 @@ func (sc *Scenario) Run() {
 	}
 	sc.T.Run(name, func(t *testing.T) {
 		for _, step := range sc.Steps {
+			// Get and increment step counter
+			counterMutex.Lock()
+			stepCounter++
+			currentStep := stepCounter
+			counterMutex.Unlock()
+			
+			// Get step name
+			stepName := step.GetFunctionName(step)
+			
+			// Log with counter format: #N# - STEP_NAME
+			fmt.Printf("#%d# - %s\n", currentStep, stepName)
+			
+			// Execute the step
 			step(*sc, t)
 		}
 	})
