@@ -6,9 +6,37 @@ import (
 )
 
 func ExampleFck() {
-	// Example: Handle error by panicking
+	// Example: Handle error by panicking (default behavior)
 	err := errors.New("something went wrong")
 	Fck(err) // Will panic if err is not nil
+}
+
+func ExampleFck_withCustomHandler() {
+	// Example: Configure Fck to exit instead of panic
+	SetDefaultHandler(HandlerExit)
+	defer ResetDefaultHandler()
+
+	err := errors.New("critical error")
+	Fck(err) // Will exit with code 1 instead of panic
+}
+
+func ExampleFck_withMessage() {
+	// Example: Configure Fck to panic with custom message
+	SetDefaultHandler(HandlerPanicWithMessage)
+	SetDefaultMessage("failed to process")
+	defer ResetDefaultHandler()
+
+	err := errors.New("connection failed")
+	Fck(err) // Will panic with: "failed to process: connection failed"
+}
+
+func ExampleFck_ignoreErrors() {
+	// Example: Configure Fck to ignore errors
+	SetDefaultHandler(HandlerIgnore)
+	defer ResetDefaultHandler()
+
+	err := errors.New("non-critical error")
+	Fck(err) // Will do nothing
 }
 
 func ExampleFckWithMessage() {
@@ -34,7 +62,7 @@ func ExampleFckWithExitMessage() {
 func ExampleFck_usage() {
 	// Common usage pattern
 	result, err := someFunction()
-	Fck(err) // Panic if error occurred
+	Fck(err) // Uses configured default handler
 	fmt.Println(result)
 }
 
