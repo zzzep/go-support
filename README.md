@@ -34,9 +34,14 @@ It is composed by some components:
   - GET/POST/PUT/PATCH/DELETE
   - With or without JSON body
   - With or without headers
+- SETTER
+  - SetIfNotEmpty
+  - SetIfNotEmptyString
+  - SetIfNotEmptySlice
+  - SetIfNotEmptyMap
 
 ## Requirements
- - Go 1.23
+ - Go 1.25
 
 ## Installing
 

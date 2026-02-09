@@ -84,4 +84,23 @@ func TestHttp(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, "test", res.Data)
 	})
+
+	t.Run("SetUrl preserves existing URL when new is empty", func(t *testing.T) {
+		req := Http[exRes]().SetUrl(ts.URL)
+		req.SetUrl("") // Try to set empty URL
+		// The URL should still be ts.URL, not empty
+		res := req.Get()
+		assert.NoError(t, res.GetError())
+		assert.NotNil(t, res.GetPayload())
+		assert.Equal(t, "test", res.GetPayload().Data)
+	})
+
+	t.Run("SetHeader with empty map does nothing", func(t *testing.T) {
+		req := Http[exRes]().SetUrl(ts.URL)
+		req.SetHeader(map[string]string{}) // Empty map
+		res := req.Get()
+		assert.NoError(t, res.GetError())
+		assert.NotNil(t, res.GetPayload())
+		assert.Equal(t, "test", res.GetPayload().Data)
+	})
 }
