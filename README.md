@@ -39,6 +39,11 @@ It is composed by some components:
   - SetIfNotEmptyString
   - SetIfNotEmptySlice
   - SetIfNotEmptyMap
+- ERROR
+  - Fck - Panic on error
+  - FckWithMessage - Panic with custom message
+  - FckWithExit - Exit program on error
+  - FckWithExitMessage - Exit with custom message
 
 ## Requirements
  - Go 1.25
