@@ -9,8 +9,8 @@ import (
 
 type Step func(sc Scenario, t *testing.T)
 
-func (s *Step) GetFunctionName(i interface{}) string {
-	p := reflect.ValueOf(i).Pointer()
+func GetFunctionName(step Step) string {
+	p := reflect.ValueOf(step).Pointer()
 	n := runtime.FuncForPC(p).Name()
 	if n == "" {
 		panic("Function name is empty")
@@ -24,4 +24,12 @@ func (s *Step) GetFunctionName(i interface{}) string {
 		panic("Function invalid, declare it first")
 	}
 	return fn
+}
+
+// GetFunctionName is kept for backward compatibility
+func (s *Step) GetFunctionName(i interface{}) string {
+	if step, ok := i.(Step); ok {
+		return GetFunctionName(step)
+	}
+	panic("Invalid step type")
 }
