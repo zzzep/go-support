@@ -3,12 +3,13 @@ package bdd
 import (
 	"fmt"
 	"reflect"
+	"strings"
 	"sync"
 	"testing"
 )
 
 var (
-	stepCounter int
+	testCounter int
 	counterMutex sync.Mutex
 )
 
@@ -39,20 +40,21 @@ func (sc *Scenario) Run() {
 	for _, step := range sc.Steps {
 		name += step.GetFunctionName(step) + " "
 	}
+	
+	// Trim trailing space
+	name = strings.TrimSpace(name)
+	
+	// Get and increment test counter (once per test/scenario)
+	counterMutex.Lock()
+	testCounter++
+	currentTest := testCounter
+	counterMutex.Unlock()
+	
+	// Log test with counter format: #N# - TEST_NAME
+	fmt.Printf("#%d# - %s\n", currentTest, name)
+	
 	sc.T.Run(name, func(t *testing.T) {
 		for _, step := range sc.Steps {
-			// Get and increment step counter
-			counterMutex.Lock()
-			stepCounter++
-			currentStep := stepCounter
-			counterMutex.Unlock()
-			
-			// Get step name
-			stepName := step.GetFunctionName(step)
-			
-			// Log with counter format: #N# - STEP_NAME
-			fmt.Printf("#%d# - %s\n", currentStep, stepName)
-			
 			// Execute the step
 			step(*sc, t)
 		}
