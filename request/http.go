@@ -5,9 +5,11 @@ import (
 	"context"
 	"crypto/tls"
 	"fmt"
-	"github.com/zzzep/go-support/json"
 	"io"
 	"net/http"
+
+	"github.com/zzzep/go-support/json"
+	"github.com/zzzep/go-support/setter"
 )
 
 const (
@@ -77,7 +79,7 @@ func (hr *HttpReq[T]) SetContext(ctx context.Context) HttpInterface[T] {
 }
 
 func (hr *HttpReq[T]) SetUrl(url string) HttpInterface[T] {
-	hr.url = url
+	setter.SetIfNotEmptyString(&hr.url, url)
 	return hr
 }
 
@@ -87,8 +89,10 @@ func (hr *HttpReq[T]) SetStructUrl(url Url) HttpInterface[T] {
 }
 
 func (hr *HttpReq[T]) SetHeader(headers map[string]string) HttpInterface[T] {
-	for keyHeader, valueHeader := range headers {
-		hr.headers.Add(keyHeader, valueHeader)
+	if len(headers) > 0 {
+		for keyHeader, valueHeader := range headers {
+			hr.headers.Add(keyHeader, valueHeader)
+		}
 	}
 	return hr
 }
