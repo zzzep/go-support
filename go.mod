@@ -1,6 +1,6 @@
 module github.com/zzzep/go-support
 
-go 1.23
+go 1.25
 
 require (
 	github.com/stretchr/objx v0.5.2

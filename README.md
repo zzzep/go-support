@@ -36,7 +36,7 @@ It is composed by some components:
   - With or without headers
 
 ## Requirements
- - Go 1.23
+ - Go 1.25
 
 ## Installing
 
