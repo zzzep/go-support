@@ -41,6 +41,31 @@ func TestError(t *testing.T) {
 	})
 }
 
+func TestExampleScenario(t *testing.T) {
+	scenario := NewScenario()
+	scenario.AddStep(Step1)
+	scenario.AddStep(Step2)
+	scenario.AddStep(Step3)
+	NewBDD(t).
+		AddScenario(*scenario).
+		Run()
+}
+
+func Step1(sc Scenario, t *testing.T) {
+	println("Example Step 1")
+	assert.True(t, true)
+}
+
+func Step2(sc Scenario, t *testing.T) {
+	println("Example Step 2")
+	assert.True(t, true)
+}
+
+func Step3(sc Scenario, t *testing.T) {
+	println("Example Step 3")
+	assert.True(t, true)
+}
+
 func DadoQueTenhaUmDado(sc Scenario, t *testing.T) {
 	println("Step 1")
 }
