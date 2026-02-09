@@ -1,9 +1,16 @@
 package bdd
 
 import (
+	"fmt"
 	"reflect"
 	"strings"
+	"sync"
 	"testing"
+)
+
+var (
+	testCounter int
+	counterMutex sync.Mutex
 )
 
 type stepType int
@@ -19,7 +26,6 @@ type stepInfo struct {
 	step Step
 	typ  stepType
 }
-
 type Scenario struct {
 	T        *testing.T
 	Steps    []stepInfo
@@ -89,6 +95,19 @@ func (sc *Scenario) Run() {
 	for _, stepInfo := range sc.Steps {
 		name += GetFunctionName(stepInfo.step) + " "
 	}
+	
+	// Trim trailing space
+	name = strings.TrimSpace(name)
+	
+	// Get and increment test counter (once per test/scenario)
+	counterMutex.Lock()
+	testCounter++
+	currentTest := testCounter
+	counterMutex.Unlock()
+	
+	// Log test with counter format: #N# - TEST_NAME
+	fmt.Printf("#%d# - %s\n", currentTest, name)
+	
 	sc.T.Run(name, func(t *testing.T) {
 		var lastStepType stepType = stepTypeNone
 		for _, stepInfo := range sc.Steps {
