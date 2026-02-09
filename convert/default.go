@@ -36,3 +36,10 @@ func ToString(a any, defaultValue string) string {
 	}
 	return val
 }
+
+// ToPtr converts a value to a pointer of the same type
+// Example: ToPtr("hello") returns *string with value "hello"
+// Example: ToPtr(42) returns *int with value 42
+func ToPtr[T any](v T) *T {
+	return &v
+}

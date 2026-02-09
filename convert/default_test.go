@@ -59,6 +59,100 @@ func TestToInt(t *testing.T) {
 	}
 }
 
+func TestToPtr(t *testing.T) {
+	t.Run("string to *string", func(t *testing.T) {
+		val := "hello"
+		ptr := ToPtr(val)
+		if ptr == nil {
+			t.Error("ToPtr() returned nil pointer")
+		}
+		if *ptr != "hello" {
+			t.Errorf("ToPtr() = %v, want %v", *ptr, "hello")
+		}
+	})
+
+	t.Run("int to *int", func(t *testing.T) {
+		val := 42
+		ptr := ToPtr(val)
+		if ptr == nil {
+			t.Error("ToPtr() returned nil pointer")
+		}
+		if *ptr != 42 {
+			t.Errorf("ToPtr() = %v, want %v", *ptr, 42)
+		}
+	})
+
+	t.Run("float64 to *float64", func(t *testing.T) {
+		val := 3.14
+		ptr := ToPtr(val)
+		if ptr == nil {
+			t.Error("ToPtr() returned nil pointer")
+		}
+		if *ptr != 3.14 {
+			t.Errorf("ToPtr() = %v, want %v", *ptr, 3.14)
+		}
+	})
+
+	t.Run("bool to *bool", func(t *testing.T) {
+		val := true
+		ptr := ToPtr(val)
+		if ptr == nil {
+			t.Error("ToPtr() returned nil pointer")
+		}
+		if *ptr != true {
+			t.Errorf("ToPtr() = %v, want %v", *ptr, true)
+		}
+	})
+
+	t.Run("zero value int to *int", func(t *testing.T) {
+		val := 0
+		ptr := ToPtr(val)
+		if ptr == nil {
+			t.Error("ToPtr() returned nil pointer")
+		}
+		if *ptr != 0 {
+			t.Errorf("ToPtr() = %v, want %v", *ptr, 0)
+		}
+	})
+
+	t.Run("zero value string to *string", func(t *testing.T) {
+		val := ""
+		ptr := ToPtr(val)
+		if ptr == nil {
+			t.Error("ToPtr() returned nil pointer")
+		}
+		if *ptr != "" {
+			t.Errorf("ToPtr() = %v, want %v", *ptr, "")
+		}
+	})
+
+	t.Run("struct to *struct", func(t *testing.T) {
+		type Person struct {
+			Name string
+			Age  int
+		}
+		val := Person{Name: "John", Age: 30}
+		ptr := ToPtr(val)
+		if ptr == nil {
+			t.Error("ToPtr() returned nil pointer")
+		}
+		if ptr.Name != "John" || ptr.Age != 30 {
+			t.Errorf("ToPtr() = %v, want %v", *ptr, val)
+		}
+	})
+
+	t.Run("slice to *slice", func(t *testing.T) {
+		val := []int{1, 2, 3}
+		ptr := ToPtr(val)
+		if ptr == nil {
+			t.Error("ToPtr() returned nil pointer")
+		}
+		if len(*ptr) != 3 || (*ptr)[0] != 1 {
+			t.Errorf("ToPtr() = %v, want %v", *ptr, val)
+		}
+	})
+}
+
 func TestToString(t *testing.T) {
 	type args struct {
 		a            any
